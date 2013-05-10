@@ -14,11 +14,9 @@ if [[ ${PV} == "9999" ]]; then
 	EGIT_REPO_URI="git://github.com/fcitx/fcitx.git"
 	SRC_URI="${HOMEPAGE}/files/pinyin.tar.gz
 		table? ( ${HOMEPAGE}/files/table.tar.gz )"
-	KEYWORDS=""
 else
 	SRC_URI="http://fcitx.googlecode.com/files/${P}_dict.tar.xz"
 	RESTRICT="mirror"
-	KEYWORDS="~amd64 ~x86"
 fi
 
 DESCRIPTION="Flexible Context-aware Input Tool with eXtension"
@@ -133,7 +131,7 @@ src_configure() {
 
 	cmake-utils_src_configure
 
-	if use abi_x86_32 ; then
+	if use amd64 && use abi_x86_32 ; then
 		mkdir -p "${WORKDIR}/${P}_build32"
 		cd "${WORKDIR}/${P}_build32"
 
@@ -175,7 +173,7 @@ src_configure() {
 src_compile(){
 	cmake-utils_src_compile
 
-	if use abi_x86_32 ; then
+	if use amd64 && use abi_x86_32 ; then
 		cd ${WORKDIR}/${P}_build32/src/
 		emake -C lib || die
 
@@ -186,7 +184,7 @@ src_compile(){
 }
 
 src_install() {
-	if use abi_x86_32 ; then
+	if use amd64 && use abi_x86_32 ; then
 		pushd "${WORKDIR}/${P}_build32/src"
 		emake DESTDIR="${D}" -C lib install || die
 
