@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="3"
+EAPI="5"
 
-inherit eutils autotools versionator git 
+inherit eutils autotools versionator git-2
 
 HOMEPAGE="http://code.google.com/p/osd-lyrics/"
 
@@ -39,6 +39,7 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 src_prepare() {
+	epatch "${FILESDIR}/${PN}-unknown-type-int64_t.patch"
 	eautoreconf
 }
 
