@@ -6,8 +6,6 @@ EAPI=5
 
 RESTRICT="mirror"
 
-EGIT_HAS_SUBMODULES=1
-
 EGIT_REPO_URI="git://github.com/avplayer/avbot.git"
 
 DESCRIPTION="avbot connects QQ/XMPP/IRC/POP3/SMTP"
@@ -18,22 +16,27 @@ SRC_URI=""
 LICENSE="GPL3"
 
 SLOT="0"
-KEYWORDS="amd64 x86"
-IUSE=""
+KEYWORDS=""
+IUSE="python zmq lua"
 
-inherit cmake-utils git-2
+inherit cmake-utils git-r3
 
 
 DEPEND="
-	>=dev-libs/boost-1.54[nls,threads,static-libs]
+	>=dev-libs/boost-1.55[nls,threads,context,static-libs,python=]
 	dev-libs/openssl
 	net-libs/gloox
+	sys-libs/zlib
+	lua? ( >=dev-lang/luajit-2.0 )
 "
 RDEPEND="${DEPEND}"
 
 src_configure(){
 	local mycmakeargs=(
 		-DINTERNALGLOOX=OFF
+		$(cmake-utils_use_enable python PYTHON)
+		$(cmake-utils_use_enable lua LUA)
+		$(cmake-utils_use_enable zmq ZMQ)
 	)
 	cmake-utils_src_configure
 }

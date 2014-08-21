@@ -11,7 +11,7 @@ EGIT_REPO_URI="git://github.com/iptux-src/iptux.git"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=""
 IUSE=""
 
 DEPEND="
