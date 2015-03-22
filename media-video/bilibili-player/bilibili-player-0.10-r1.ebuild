@@ -23,11 +23,15 @@ DEPEND=">=dev-qt/qtmultimedia-5.4[widgets,gstreamer]
 		>=dev-qt/qtgui-5.4[opengl]
         >=dev-qt/qtsvg-5.4
         >=dev-libs/boost-1.55[threads(+),context]
-		media-plugins/gst-plugins-gnomevfs
 		sci-physics/bullet
         >=dev-util/cmake-3.1"
 
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	|| (
+		media-plugins/gst-plugins-soup:0.10 
+		media-plugins/gst-plugins-neon:0.10
+	)
+"
 
 S="${WORKDIR}/bilibili_player-${PV}"
 
