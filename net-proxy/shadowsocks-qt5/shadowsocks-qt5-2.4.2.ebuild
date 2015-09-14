@@ -15,8 +15,8 @@ LICENSE="GPL-3"
 
 IUSE=""
 
-RDEPEND="dev-libs/sni-qt
-	>=net-proxy/libQtShadowsocks-1.6.0
+RDEPEND="dev-libs/libappindicator:2
+	>=net-proxy/libQtShadowsocks-1.6.1
 	media-gfx/zbar
 	media-gfx/qrencode"
 DEPEND="${RDEPEND}
@@ -28,6 +28,15 @@ DEPEND="${RDEPEND}
 
 S="${WORKDIR}/${P}"
 
-post_postinst() {
+PATCHES=(
+	# https://github.com/librehat/shadowsocks-qt5/issues/190
+	"${FILESDIR}/remove-gnome-from-appindicator-de-list.patch"
+)
+
+pkg_postinst() {
+	gnome2_icon_cache_update
+}
+
+pkg_postrm() {
 	gnome2_icon_cache_update
 }
